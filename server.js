@@ -23,7 +23,7 @@ app.use('/api/chat', chatRoutes)
 
 const PORT = process.env.PORT || 6000
 
-app.listen(5000, () => {
+app.listen(PORT, () => {
   console.log(`Server started on post  ${PORT}`.yellow)
 })
 const chats = [
