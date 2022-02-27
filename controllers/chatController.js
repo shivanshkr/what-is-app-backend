@@ -162,7 +162,6 @@ const removeFromGroup = async (req, res) => {
 
       if (!removed) {
         res.status(404).send('Chat Not Found')
-        throw new Error('Chat Not Found')
       } else {
         res.json(removed)
       }
@@ -202,7 +201,6 @@ const addToGroup = async (req, res) => {
 
       if (!added) {
         res.status(404).send('Chat Not Found')
-        throw new Error('Chat Not Found')
       } else {
         res.json(added)
       }
@@ -228,7 +226,6 @@ const deleteGroup = async (req, res) => {
 
       if (!deleted) {
         res.status(404).send('Chat Not Found')
-        throw new Error('Chat Not Found')
       } else {
         res.json(deleted)
       }

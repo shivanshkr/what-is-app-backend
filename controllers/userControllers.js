@@ -9,12 +9,10 @@ const registerUser = asyncHandler(async (req, res) => {
   email = email.toLowerCase()
   if (!name || !email || !password) {
     res.status(400).send('Please Enter all the Fields')
-    throw new Error('Please Enter all the Fields')
   }
   let user = await User.findOne({ email: email })
   if (user) {
     res.status(400).send('User already exist')
-    throw new Error('User already exists')
   }
   const genSalt = bcrypt.genSaltSync(12)
   try {
@@ -34,11 +32,9 @@ const registerUser = asyncHandler(async (req, res) => {
       })
     } else {
       res.status(500).send('Failed to create the User')
-      throw new Error('Failed to create the User')
     }
   } catch (error) {
     res.status(500).send('Failed to create the User')
-    throw new Error('Failed to create the User')
   }
 })
 
@@ -47,7 +43,6 @@ const authUser = async (req, res) => {
   email = email.toLowerCase()
   if (!email || !password) {
     res.status(400).send('Please Enter all the Fields')
-    throw new Error('Please Enter all the Fields')
   }
   let user = await User.findOne({ email: email })
   if (!user) {

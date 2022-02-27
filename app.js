@@ -6,6 +6,7 @@ var userRoutes = require('./routes/userRoutes')
 var chatRoutes = require('./routes/chatRoutes')
 const colors = require('colors')
 // const authJwt = require('./config/jwt')
+const errorHandler = require('./config/error-handler')
 
 const app = express()
 app.use(cors())
@@ -13,6 +14,7 @@ dotenv.config()
 connectDB()
 app.use(express.json())
 // app.use(authJwt())
+app.use(errorHandler)
 
 app.get('/', (request, response) => {
   response.send('API is Running')
