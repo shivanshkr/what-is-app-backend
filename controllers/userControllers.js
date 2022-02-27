@@ -75,6 +75,8 @@ const allUsers = async (req, res) => {
   const users = await User.find(keyword)
     .find({ _id: { $ne: req.user._id } })
     .select('-passwordHash')
+    .sort({ name: 1 })
+
   res.status(200).send(users)
   console.log(keyword)
 }
@@ -85,4 +87,33 @@ const getProfile = async (req, res) => {
   res.status(200).send(user)
 }
 
-module.exports = { registerUser, authUser, allUsers, getProfile }
+const updateProfilePic = async (req, res) => {
+  const { pic, chatName } = req.body
+  if (!pic) {
+    res.status(400).send('Invalid Pic ')
+    return
+  }
+  const updatedProfile = await User.findByIdAndUpdate(
+    req.user._id,
+    {
+      pic: pic,
+    },
+    {
+      new: true,
+    }
+  ).select('-passwordHash')
+
+  if (!updatedProfile) {
+    res.status(404).send('User Not Found')
+  } else {
+    res.status(200).json(updatedProfile)
+  }
+}
+
+module.exports = {
+  registerUser,
+  authUser,
+  allUsers,
+  getProfile,
+  updateProfilePic,
+}

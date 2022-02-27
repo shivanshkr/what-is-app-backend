@@ -60,8 +60,8 @@ const fetchChats = async (req, res) => {
     const chats = await Chat.find({
       users: { $elemMatch: { $eq: req.user._id } },
     })
-      .populate('users', '-password')
-      .populate('groupAdmin', '-password')
+      .populate('users', '-passwordHash')
+      .populate('groupAdmin', '-passwordHash')
       .populate('latestMessage')
       .sort({ updatedAt: -1 })
       .then(async (result) => {
@@ -96,11 +96,12 @@ const createGroupChat = async (req, res) => {
       users: users,
       isGroupChat: true,
       groupAdmin: req.user,
+      groupPic: req.body.groupPic,
     })
 
     const fullGroupChat = await Chat.findOne({ _id: groupChat._id })
-      .populate('users', '-password')
-      .populate('groupAdmin', '-password')
+      .populate('users', '-passwordHash')
+      .populate('groupAdmin', '-passwordHash')
 
     res.status(200).json(fullGroupChat)
   } catch (error) {
@@ -124,8 +125,8 @@ const renameGroup = async (req, res) => {
       new: true,
     }
   )
-    .populate('users', '-password')
-    .populate('groupAdmin', '-password')
+    .populate('users', '-passwordHash')
+    .populate('groupAdmin', '-passwordHash')
 
   if (!updatedChat) {
     res.status(404).send('Chat Not Found')
@@ -157,8 +158,8 @@ const removeFromGroup = async (req, res) => {
           new: true,
         }
       )
-        .populate('users', '-password')
-        .populate('groupAdmin', '-password')
+        .populate('users', '-passwordHash')
+        .populate('groupAdmin', '-passwordHash')
 
       if (!removed) {
         res.status(404).send('Chat Not Found')
@@ -196,8 +197,8 @@ const addToGroup = async (req, res) => {
           new: true,
         }
       )
-        .populate('users', '-password')
-        .populate('groupAdmin', '-password')
+        .populate('users', '-passwordHash')
+        .populate('groupAdmin', '-passwordHash')
 
       if (!added) {
         res.status(404).send('Chat Not Found')
