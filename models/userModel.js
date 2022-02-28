@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema(
       type: String,
       required: true,
       default:
-        'https://www.pngfind.com/pngs/m/676-6764065_default-profile-picture-transparent-hd-png-download.png',
+        'https://res.cloudinary.com/what-is-app/image/upload/v1646062233/profilePic_uigcf8.png',
     },
   },
   { timestamps: true }
