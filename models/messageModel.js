@@ -2,7 +2,7 @@ const mongoose = require('mongoose')
 
 const messageSchema = mongoose.Schema(
   {
-    contents: { type: String, trim: true },
+    content: { type: String, trim: true },
 
     sender: {
       type: mongoose.Schema.Types.ObjectId,
@@ -19,4 +19,4 @@ const messageSchema = mongoose.Schema(
 messageSchema.virtual('id').get(function () {
   return this._id.toHexString()
 })
-exports.Message = mongoose.model('Message', messageSchema)
+module.exports = Message = mongoose.model('Message', messageSchema)
