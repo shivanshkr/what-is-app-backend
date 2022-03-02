@@ -42,6 +42,8 @@ const allMessage = async (req, res) => {
     const messages = await Message.find({ chat: req.params.chatId })
       .populate('sender', 'name pic email')
       .populate('chat')
+      .sort({ updatedAt: -1 })
+
     res.status(200).json(messages)
   } catch (error) {
     res.status(400).send("Can't get messages")
